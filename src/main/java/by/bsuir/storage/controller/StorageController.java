@@ -1,6 +1,6 @@
 package by.bsuir.storage.controller;
 
-import by.bsuir.storage.service.StorageService;
+import by.bsuir.storage.logic.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +39,17 @@ public class StorageController {
         if (!storageService.isExist(location) || !storageService.isRealFile(location)) {
             return "not-found";
         }
-        storageService.writeToFile(location, data);
+        storageService.writeToFile(data, location);
+        return "redirect:/storage?location=" + location;
+    }
+
+    @PostMapping
+    public String addToEndFile(@RequestParam("location") String location,
+                              @RequestParam String data) throws IOException {
+        if (!storageService.isExist(location) || !storageService.isRealFile(location)) {
+            return "not-found";
+        }
+        storageService.addToEndFile(data, location);
         return "redirect:/storage?location=" + location;
     }
 

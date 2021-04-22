@@ -1,4 +1,4 @@
-package by.bsuir.storage.service;
+package by.bsuir.storage.logic.service;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,5 +13,7 @@ public interface StorageService {
 
     boolean isExist(String location);
 
-    void writeToFile(String location, String data) throws IOException;
+    void writeToFile(String data, String location) throws IOException;
+
+    void addToEndFile(String data, String location) throws IOException;
 }

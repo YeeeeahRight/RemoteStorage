@@ -1,6 +1,8 @@
-package by.bsuir.storage.service.impl;
+package by.bsuir.storage.logic.service.impl;
 
-import by.bsuir.storage.service.StorageService;
+import by.bsuir.storage.logic.file.FileManager;
+import by.bsuir.storage.logic.service.StorageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -11,15 +13,16 @@ import java.util.List;
 public class StorageServiceImpl implements StorageService {
     private static final String ROOT_PATH = "data";
 
+    private final FileManager fileManager;
+
+    @Autowired
+    public StorageServiceImpl(FileManager fileManager) {
+        this.fileManager = fileManager;
+    }
+
     @Override
     public String readFile(String location) throws IOException {
-        StringBuilder content = new StringBuilder();
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(getRealLocation(location)));
-        while (bufferedReader.ready()) {
-            content.append(bufferedReader.readLine());
-        }
-        bufferedReader.close();
-        return content.toString();
+        return fileManager.read(location);
     }
 
     @Override
@@ -40,10 +43,14 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public void writeToFile(String location, String data) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(getRealLocation(location)));
-        bufferedWriter.write(data);
-        bufferedWriter.close();
+    public void writeToFile(String data, String location) throws IOException {
+        fileManager.write(data, location);
+    }
+
+    @Override
+    public void addToEndFile(String data, String location) throws IOException {
+        String fileData = fileManager.read(location);
+        fileManager.write(fileData + data, location);
     }
 
     private String getRealLocation(String location) {
