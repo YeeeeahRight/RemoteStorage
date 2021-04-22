@@ -12,4 +12,6 @@ public interface StorageService {
     boolean isRealFile(String location);
 
     boolean isExist(String location);
+
+    void writeToFile(String location, String data) throws IOException;
 }

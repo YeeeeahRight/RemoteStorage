@@ -25,12 +25,22 @@ public class StorageController {
         }
         if (storageService.isRealFile(location)) {
             String content = storageService.readFile(location);
-            model.addAttribute("content", content);
+            model.addAttribute("data", content);
             return "file-content";
         }
         model.addAttribute("listFiles", storageService.readDirectory(location));
         model.addAttribute("location", addSlashInEnd(location));
         return "directory-content";
+    }
+
+    @PutMapping
+    public String writeToFile(@RequestParam("location") String location,
+                              @RequestParam String data) throws IOException {
+        if (!storageService.isExist(location) || !storageService.isRealFile(location)) {
+            return "not-found";
+        }
+        storageService.writeToFile(location, data);
+        return "redirect:/storage?location=" + location;
     }
 
     private String addSlashInEnd(String location) {

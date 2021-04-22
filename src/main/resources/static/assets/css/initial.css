@@ -21,4 +21,5 @@ button {
     color: white;
     font-family: "Futura Md BT", serif;
     font-weight: bold;
+    cursor: pointer;
 }

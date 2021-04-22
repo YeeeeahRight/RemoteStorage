@@ -3,10 +3,7 @@ package by.bsuir.storage.service.impl;
 import by.bsuir.storage.service.StorageService;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +18,7 @@ public class StorageServiceImpl implements StorageService {
         while (bufferedReader.ready()) {
             content.append(bufferedReader.readLine());
         }
+        bufferedReader.close();
         return content.toString();
     }
 
@@ -39,6 +37,13 @@ public class StorageServiceImpl implements StorageService {
         List<String> names = new ArrayList<>();
         getDirectoryContent(new File(getRealLocation(location)), names);
         return names;
+    }
+
+    @Override
+    public void writeToFile(String location, String data) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(getRealLocation(location)));
+        bufferedWriter.write(data);
+        bufferedWriter.close();
     }
 
     private String getRealLocation(String location) {
