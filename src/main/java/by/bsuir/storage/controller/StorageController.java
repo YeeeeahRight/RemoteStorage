@@ -53,10 +53,29 @@ public class StorageController {
         return "redirect:/storage?location=" + location;
     }
 
+    @DeleteMapping
+    public String deleteFile(@RequestParam("location") String location) throws IOException {
+        if (!storageService.isExist(location) || !storageService.isRealFile(location)) {
+            return "not-found";
+        }
+        storageService.deleteFile(location);
+        return "redirect:/storage?location=" + getPrevLocation(location);
+    }
+
     private String addSlashInEnd(String location) {
         if (location.isEmpty() || location.charAt(location.length() - 1) != '/') {
             location += '/';
         }
         return location;
+    }
+
+
+    //  data/dsadas/ds
+    private String getPrevLocation(String location) {
+        int slashPosition = location.lastIndexOf("/");
+        if (slashPosition > 0) {
+            return location.substring(0, slashPosition);
+        }
+        return "/";
     }
 }

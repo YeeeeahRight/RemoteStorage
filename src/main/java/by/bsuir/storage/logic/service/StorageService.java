@@ -16,4 +16,6 @@ public interface StorageService {
     void writeToFile(String data, String location) throws IOException;
 
     void addToEndFile(String data, String location) throws IOException;
+
+    void deleteFile(String location) throws IOException;
 }

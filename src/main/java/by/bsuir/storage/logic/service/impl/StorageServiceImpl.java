@@ -22,7 +22,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public String readFile(String location) throws IOException {
-        return fileManager.read(location);
+        return fileManager.read(getRealLocation(location));
     }
 
     @Override
@@ -44,13 +44,20 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public void writeToFile(String data, String location) throws IOException {
-        fileManager.write(data, location);
+        fileManager.write(data, getRealLocation(location));
     }
 
     @Override
     public void addToEndFile(String data, String location) throws IOException {
-        String fileData = fileManager.read(location);
-        fileManager.write(fileData + data, location);
+        String realLocation = getRealLocation(location);
+        String fileData = fileManager.read(realLocation);
+        fileManager.write(fileData + data, realLocation);
+    }
+
+    @Override
+    public void deleteFile(String location) throws IOException {
+        File file = new File(getRealLocation(location));
+        file.delete();
     }
 
     private String getRealLocation(String location) {

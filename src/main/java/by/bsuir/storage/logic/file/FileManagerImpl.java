@@ -16,7 +16,11 @@ public class FileManagerImpl implements FileManager {
             content.append(bufferedReader.readLine()).append(NEW_LINE);
         }
         bufferedReader.close();
-        return content.toString();
+        String contentStr = content.toString();
+        if (!contentStr.isEmpty()) {
+            contentStr = contentStr.substring(0, contentStr.length() - 2);
+        }
+        return contentStr;
     }
 
     @Override

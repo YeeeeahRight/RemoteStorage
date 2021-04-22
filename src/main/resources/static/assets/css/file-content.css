@@ -19,11 +19,16 @@ button {
     margin: 30px auto 20px;
 }
 
-input {
+.add_area {
     margin-top: 30px;
     width: 800px;
     height: 200px;
-    font-size: 20px;
+    font-size: 24px;
     margin-right: auto;
     margin-left: auto;
+}
+
+.delete {
+    background-color: red;
+    margin-top: 40px;
 }
