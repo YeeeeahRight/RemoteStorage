@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Remote storage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/initial.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/file-content.css}" />
+</head>
+<body>
+<form th:method="PUT" action="/">
+    <textarea th:text="${content}"></textarea>
+    <button type="submit">
+        PUT
+    </button>
+</form>
+</body>
+</html>

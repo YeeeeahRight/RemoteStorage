@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Remote storage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/initial.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/directory-content.css}" />
+</head>
+<body>
+<div class="list">
+    <a th:each="file : ${listFiles}" th:href="@{'/storage?location=' + ${location} + ${file}}" th:text="${file}"></a>
+</div>
+</body>
+</html>
