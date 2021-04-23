@@ -3,6 +3,7 @@ package by.bsuir.storage.service.impl;
 import by.bsuir.storage.service.StorageService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.LinkedHashMap;
@@ -42,6 +43,14 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public void deleteDirectory(String location) {
         FileSystemUtils.deleteRecursively(new File(getRealLocation(location)));
+    }
+
+    @Override
+    public void uploadFile(MultipartFile file, String location) throws IOException {
+        String path = getRealLocation(location) + "/" + file.getOriginalFilename();
+        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(path));
+        bufferedOutputStream.write(file.getBytes());
+        bufferedOutputStream.close();
     }
 
     private String getRealLocation(String location) {

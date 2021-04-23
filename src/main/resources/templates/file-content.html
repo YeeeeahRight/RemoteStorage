@@ -21,14 +21,14 @@
     </button>
 </form>
 <form class="copy-form" method="post" th:action="'/storage/file/copy?location=' + ${location}">
-    <input type="text" name="path" placeholder="Enter path where you want to copy it"/>
+    <input type="text" name="path" placeholder="Enter path where you want to copy it" required/>
     <button type="submit">
         COPY
     </button>
 </form>
 
 <form class="copy-form" th:method="PUT" th:action="'/storage/file/move?location=' + ${location}">
-    <input type="text" name="path" placeholder="Enter path where you want to move it"/>
+    <input type="text" name="path" placeholder="Enter path where you want to move it" required/>
     <button type="submit">
         MOVE
     </button>

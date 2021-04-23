@@ -18,7 +18,7 @@
         </a>
     </div>
 </div>
-<form class="create-form" method="post" th:action="@{'/storage?location=' + ${location}}" >
+<form class="create-form" method="post" th:action="@{'/storage?location=' + ${location}}" enctype="multipart/form-data">
     <select name="type" required>
         <option>Directory</option>
         <option>File</option>
@@ -26,6 +26,14 @@
     <input type="text" name="name" placeholder="Enter name of file/directory" required/>
     <button type="submit">
         CREATE
+    </button>
+</form>
+<form class="upload-form" method="post" th:action="@{'/storage/upload?location=' + ${location}}"
+      enctype="multipart/form-data">
+    <label for="file">or upload(file)</label>
+    <input type="file" name="file" id="file"/>
+    <button type="submit">
+        UPLOAD
     </button>
 </form>
 <div th:if="${prevLocation}" class="end-buttons">

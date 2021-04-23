@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -43,6 +44,13 @@ public class StorageController {
             throw new OutOfStorageBoundsException("Incorrect name");
         }
         storageService.addFile(name, location, type);
+        return "redirect:/storage?location=" + location;
+    }
+
+    @PostMapping("/upload")
+    public String uploadFile(@RequestParam String location,
+                             @RequestParam MultipartFile file) throws IOException {
+        storageService.uploadFile(file, location);
         return "redirect:/storage?location=" + location;
     }
 

@@ -53,9 +53,10 @@ form select {
 }
 
 form button {
-    width: 120px;
-    font-size: 28px;
+    width: 140px;
+    font-size: 26px;
 }
+
 .end-buttons {
     margin-top: 35px;
     display: flex;
@@ -76,4 +77,20 @@ form button {
 
 .create-form {
     margin-top: 40px;
+}
+
+.upload-form {
+    margin-top: 20px;
+    margin-right: 24px;
+}
+
+label {
+    color: white;
+    font-size: 22px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.upload-form input {
+    font-size: 15px;
 }
