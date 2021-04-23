@@ -1,7 +1,10 @@
 package by.bsuir.storage.controller;
 
+import by.bsuir.storage.exception.EntityNotFound;
+import by.bsuir.storage.exception.OutOfStorageBoundsException;
 import by.bsuir.storage.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,37 +21,38 @@ public class StorageController {
         this.storageService = storageService;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public String getDirectoryContent(@RequestParam String location, Model model)  {
-        if (storageService.isDirectory(location)) {
-            model.addAttribute("directoryContent", storageService.readDirectory(location));
-            model.addAttribute("location", addSlashInEnd(location));
-            if (!location.equals("/")) {
-                model.addAttribute("prevLocation", getPrevLocation(location));
-            }
-            return "directory-content";
+        if (!storageService.isDirectory(location)) {
+            throw new EntityNotFound("Directory not found");
         }
-        return "file-not-found";
+        model.addAttribute("directoryContent", storageService.readDirectory(location));
+        model.addAttribute("location", addSlashInEnd(location));
+        if (!location.equals("/")) {
+            model.addAttribute("prevLocation", getPrevLocation(location));
+        }
+        return "directory-content";
     }
 
     @PostMapping
     public String addFile(@RequestParam String location,
                           @RequestParam String name,
                           @RequestParam String type) throws IOException {
-        if (storageService.isCorrectPath(location + name)) {
-            storageService.addFile(name, location, type);
-            return "redirect:/storage?location=" + location;
+        if (!storageService.isCorrectPath(location + name)) {
+            throw new OutOfStorageBoundsException("Incorrect name");
         }
-        return "file-not-found";
+        storageService.addFile(name, location, type);
+        return "redirect:/storage?location=" + location;
     }
 
     @DeleteMapping
     public String deleteDirectory(@RequestParam String location) {
-        if (storageService.isDirectory(location)) {
-            storageService.deleteDirectory(location);
-            return "redirect:/storage?location=" + getPrevLocation(location);
+        if (!storageService.isDirectory(location)) {
+            throw new EntityNotFound("Directory not found");
         }
-        return "file-not-found";
+        storageService.deleteDirectory(location);
+        return "redirect:/storage?location=" + getPrevLocation(location);
     }
 
     private String addSlashInEnd(String location) {

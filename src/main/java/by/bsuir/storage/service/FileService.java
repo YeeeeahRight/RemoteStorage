@@ -13,4 +13,8 @@ public interface FileService {
     void deleteFile(String location);
 
     boolean isRealFile(String location);
+
+    void copyFile(String location, String destination) throws IOException;
+
+    void moveFile(String location, String destination) throws IOException;
 }

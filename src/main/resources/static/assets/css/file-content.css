@@ -12,9 +12,11 @@ form {
 }
 
 textarea {
-    margin-top: 50px;
+    margin-top: 60px;
     margin-right: auto;
     margin-left: auto;
+    background-color: #17212B;
+    color: white;
     width: 800px;
     height: 400px;
     font-size: 18px;
@@ -35,10 +37,34 @@ button {
     margin-left: auto;
 }
 
+.copy-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 50px;
+}
+
+.copy-form button {
+    margin: 0;
+    margin-right: 100px;
+}
+
+input {
+    background-color: #17212B;
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 50px;
+    width: 400px;
+    height: 30px;
+    font-size: 24px;
+}
+
 .end-buttons {
     margin-top: 40px;
     display: flex;
     justify-content: center;
+
 }
 
 .back {

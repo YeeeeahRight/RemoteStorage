@@ -36,7 +36,20 @@ public class FileServiceImpl implements FileService {
     @Override
     public boolean isRealFile(String location) {
         String realLocation = getRealLocation(location);
-        return new File(realLocation).isFile() && !realLocation.contains("/..") && !realLocation.contains("../");
+        return new File(realLocation).isFile() && !realLocation.contains("../");
+    }
+
+    @Override
+    public void copyFile(String location, String destination) throws IOException {
+        String data = read(getRealLocation(location));
+        write(data, getRealLocation(destination));
+    }
+
+    @Override
+    public void moveFile(String location, String destination) throws IOException {
+        String data = read(getRealLocation(location));
+        write(data, getRealLocation(destination));
+        deleteFile(location);
     }
 
     private String getRealLocation(String location) {

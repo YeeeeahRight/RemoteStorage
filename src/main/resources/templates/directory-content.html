@@ -23,13 +23,13 @@
         <option>Directory</option>
         <option>File</option>
     </select>
-    <input type="text" name="name" required/>
+    <input type="text" name="name" placeholder="Enter name of file/directory" required/>
     <button type="submit">
         CREATE
     </button>
 </form>
-<div class="end-buttons">
-    <form th:if="${prevLocation}" class="back-form" method="GET" action="/storage">
+<div th:if="${prevLocation}" class="end-buttons">
+    <form class="back-form" method="GET" action="/storage">
         <input type="hidden" name="location" th:value="${prevLocation}"/>
         <button class="back" type="submit">
             BACK

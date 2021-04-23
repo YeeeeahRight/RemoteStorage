@@ -15,11 +15,25 @@
     </button>
 </form>
 <form method="post">
-    <textarea class="add_area" name="data"></textarea>
+    <textarea class="add_area" name="data" placeholder="Enter data to add to end of the file"></textarea>
     <button type="submit">
         ADD TO END
     </button>
 </form>
+<form class="copy-form" method="post" th:action="'/storage/file/copy?location=' + ${location}">
+    <input type="text" name="path" placeholder="Enter path where you want to copy it"/>
+    <button type="submit">
+        COPY
+    </button>
+</form>
+
+<form class="copy-form" th:method="PUT" th:action="'/storage/file/move?location=' + ${location}">
+    <input type="text" name="path" placeholder="Enter path where you want to move it"/>
+    <button type="submit">
+        MOVE
+    </button>
+</form>
+
 <div class="end-buttons">
     <form method="GET" action="/storage">
         <input type="hidden" name="location" th:value="${dirLocation}"/>
