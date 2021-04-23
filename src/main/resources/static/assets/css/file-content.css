@@ -75,3 +75,8 @@ input {
 .delete {
     background-color: red;
 }
+
+.download {
+    margin-top: 45px;
+    background-color: #FDCF3D;
+}

@@ -5,11 +5,13 @@ import by.bsuir.storage.exception.OutOfStorageBoundsException;
 import by.bsuir.storage.service.FileService;
 import by.bsuir.storage.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
@@ -36,6 +38,14 @@ public class FileController {
         model.addAttribute("location", location);
         model.addAttribute("dirLocation", getPrevLocation(location));
         return "file-content";
+    }
+
+    @GetMapping("/download")
+    public void downloadFile(@RequestParam String location,
+                               HttpServletResponse response) throws IOException {
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + getFileName(location));
+        response.getOutputStream().write(fileService.getFileBytes(location));
+        response.flushBuffer();
     }
 
     @PutMapping
@@ -99,5 +109,9 @@ public class FileController {
             return location.substring(0, slashPosition);
         }
         return "/";
+    }
+
+    private String getFileName(String location) {
+        return location.substring(location.lastIndexOf("/"));
     }
 }

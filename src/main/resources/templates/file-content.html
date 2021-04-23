@@ -33,7 +33,12 @@
         MOVE
     </button>
 </form>
-
+<form method="GET" action="/storage/file/download">
+    <input type="hidden" name="location" th:value="${location}"/>
+    <button class="download" type="submit">
+        DOWNLOAD
+    </button>
+</form>
 <div class="end-buttons">
     <form method="GET" action="/storage">
         <input type="hidden" name="location" th:value="${dirLocation}"/>

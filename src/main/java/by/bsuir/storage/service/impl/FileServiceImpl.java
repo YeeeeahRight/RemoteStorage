@@ -17,7 +17,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void writeToFile(String data, String location) throws IOException {
-         write(data, getRealLocation(location));
+        write(data, getRealLocation(location));
     }
 
     @Override
@@ -50,6 +50,21 @@ public class FileServiceImpl implements FileService {
         String data = read(getRealLocation(location));
         write(data, getRealLocation(destination));
         deleteFile(location);
+    }
+
+    @Override
+    public byte[] getFileBytes(String location) throws IOException {
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(
+                new FileInputStream(getRealLocation(location)));
+        ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[1024 * 10];
+        while ((nRead = bufferedInputStream.read(data, 0, data.length)) != -1) {
+            byteArray.write(data, 0, nRead);
+        }
+        byteArray.flush();
+        bufferedInputStream.close();
+        return byteArray.toByteArray();
     }
 
     private String getRealLocation(String location) {

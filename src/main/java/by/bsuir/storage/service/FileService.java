@@ -17,4 +17,6 @@ public interface FileService {
     void copyFile(String location, String destination) throws IOException;
 
     void moveFile(String location, String destination) throws IOException;
+
+    byte[] getFileBytes(String location) throws IOException;
 }
