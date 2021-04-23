@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/file-content.css}" />
 </head>
 <body>
+<h1 class="path" th:text="'File path: ' + ${location}"></h1>
 <form th:method="PUT">
     <textarea name="data" th:text="${data}"></textarea>
     <button type="submit">
@@ -19,10 +20,18 @@
         ADD TO END
     </button>
 </form>
-<form th:method="DELETE">
-    <button class="delete" type="submit">
-        DELETE
-    </button>
-</form>
+<div class="end-buttons">
+    <form method="GET" action="/storage">
+        <input type="hidden" name="location" th:value="${dirLocation}"/>
+        <button class="back" type="submit">
+            BACK
+        </button>
+    </form>
+    <form th:method="DELETE">
+        <button class="delete" type="submit">
+            DELETE
+        </button>
+    </form>
+</div>
 </body>
 </html>

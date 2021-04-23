@@ -7,8 +7,42 @@
     <link rel="stylesheet" type="text/css" th:href="@{/assets/css/directory-content.css}" />
 </head>
 <body>
+<h1 class="path" th:text="'Directory path: ' + ${location}"></h1>
 <div class="list">
-    <a th:each="file : ${listFiles}" th:href="@{'/storage?location=' + ${location} + ${file}}" th:text="${file}"></a>
+    <div class="row" th:each="content : ${directoryContent}">
+        <h1 th:text="${content.getValue()}"></h1>
+        <a th:href="@{'/storage' + ${content.getValue().equalsIgnoreCase('file: ') ? '/file' : ''}
+                                 + '?location=' + ${location} + ${content.getKey()}
+                                 + ${content.getValue().equalsIgnoreCase('dir: ') ? '/' : ''}}">
+            <h1 th:text="${content.getKey()}"></h1>
+        </a>
+    </div>
 </div>
+<form class="create-form" method="post" th:action="@{'/storage?location=' + ${location}}" >
+    <select name="type" required>
+        <option>Directory</option>
+        <option>File</option>
+    </select>
+    <input type="text" name="name" required/>
+    <button type="submit">
+        CREATE
+    </button>
+</form>
+<div class="end-buttons">
+    <form th:if="${prevLocation}" class="back-form" method="GET" action="/storage">
+        <input type="hidden" name="location" th:value="${prevLocation}"/>
+        <button class="back" type="submit">
+            BACK
+        </button>
+    </form>
+    <form th:method="DELETE">
+        <button class="delete" type="submit">
+            DELETE
+        </button>
+    </form>
+</div>
+<form>
+
+</form>
 </body>
 </html>

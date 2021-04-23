@@ -6,9 +6,75 @@
     margin-top: 30px;
 }
 
-.list a {
-    text-decoration: none;
-    font-size: 28px;
+.path {
+    text-align: center;
     font-weight: bold;
+    font-size: 46px;
+    margin-top: 15px;
+}
+
+.row {
     margin-top: 11px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+.row a {
+    text-decoration: underline;
+    text-decoration-color: #5288C1;
+    margin-left: 12px;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+}
+
+form input {
+    margin: auto 30px;
+    height: 26px;
+    font-size: 20px;
+    width: 200px;
+    background-color: #17212B;
+    color: white;
+}
+
+form select {
+    height: 36px;
+    font-size: 20px;
+    width: 100px;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: white;
+    background-color: #17212B;
+}
+
+form button {
+    width: 120px;
+    font-size: 28px;
+}
+
+.end-buttons {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.back-form {
+    margin-right: 30px;
+}
+
+.back {
+    background-color: #708499;
+}
+
+.delete {
+    background-color: red;
+}
+
+.create-form {
+    margin-top: 40px;
 }
