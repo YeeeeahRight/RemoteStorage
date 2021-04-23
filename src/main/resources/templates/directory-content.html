@@ -11,14 +11,14 @@
 <div class="list">
     <div class="row" th:each="content : ${directoryContent}">
         <h1 th:text="${content.getValue()}"></h1>
-        <a th:href="@{'/storage' + ${content.getValue().equalsIgnoreCase('file: ') ? '/file' : ''}
-                                 + '?location=' + ${location} + ${content.getKey()}
+        <a th:href="@{'/storage' + ${content.getValue().equalsIgnoreCase('file: ') ? '/files' : ''}
+                                 + ${location} + ${content.getKey()}
                                  + ${content.getValue().equalsIgnoreCase('dir: ') ? '/' : ''}}">
             <h1 th:text="${content.getKey()}"></h1>
         </a>
     </div>
 </div>
-<form class="create-form" method="post" th:action="@{'/storage?location=' + ${location}}" enctype="multipart/form-data">
+<form class="create-form" method="post" th:action="@{'/storage' + ${location}}">
     <select name="type" required>
         <option>Directory</option>
         <option>File</option>
@@ -28,7 +28,7 @@
         CREATE
     </button>
 </form>
-<form class="upload-form" method="post" th:action="@{'/storage/upload?location=' + ${location}}"
+<form class="upload-form" method="post" th:action="@{'/storage/upload' + ${location}}"
       enctype="multipart/form-data">
     <label for="file">or upload(file)</label>
     <input type="file" name="file" id="file"/>
@@ -37,8 +37,7 @@
     </button>
 </form>
 <div th:if="${prevLocation}" class="end-buttons">
-    <form class="back-form" method="GET" action="/storage">
-        <input type="hidden" name="location" th:value="${prevLocation}"/>
+    <form class="back-form" method="GET" th:action="@{'/storage' + ${prevLocation}}">
         <button class="back" type="submit">
             BACK
         </button>
